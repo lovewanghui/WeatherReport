@@ -13,6 +13,7 @@
 //map the exact key to the variables
 + (JSONKeyMapper *)keyMapper
 {
+    //map the key to the exact string
     return [[JSONKeyMapper alloc] initWithDictionary:@{
                                                        @"HeWeather_data_service_3_0.basic.city":@"city",
                                                        @"HeWeather_data_service_3_0.basic.cnty":@"country",

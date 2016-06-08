@@ -14,6 +14,7 @@
 
 @interface WeatherDailyModel : JSONModel
 
+//weather data of each day
 @property (nonatomic, strong) NSString *weatherDate;
 @property (nonatomic, strong) NSString *dayWeather, *nightWeather;
 @property (nonatomic, strong) NSString *tmp_min, *tmp_max;

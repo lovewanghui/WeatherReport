@@ -14,9 +14,9 @@
 
 - (IBAction)clicked:(id)sender;
 
-@property (weak, nonatomic) IBOutlet UILabel *curWeatherLabel;
+@property (weak, nonatomic) IBOutlet UILabel *curWeatherLabel; //show the current weather data
 
-@property (weak, nonatomic) IBOutlet UITableView *dailyWeatherTable;
+@property (weak, nonatomic) IBOutlet UITableView *dailyWeatherTable; //show 7-days weather data
 
 @end
 

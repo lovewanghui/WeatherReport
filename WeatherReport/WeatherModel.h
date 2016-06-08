@@ -11,6 +11,7 @@
 
 @interface WeatherModel : JSONModel
 
+//current weather data keys
 @property (nonatomic, strong) NSString *city;
 @property (nonatomic, strong) NSString *country;
 @property (nonatomic, strong) NSString *curWeather;
@@ -18,6 +19,7 @@
 @property (nonatomic, strong) NSString *pm25;
 @property (nonatomic, strong) NSString *airQuality;
 
+//7-days weather data array
 @property (nonatomic, copy) NSMutableArray<WeatherDailyModel> *dailyWeatherDatas;
 
 

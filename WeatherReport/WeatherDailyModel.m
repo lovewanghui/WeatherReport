@@ -12,6 +12,7 @@
 
 + (JSONKeyMapper *)keyMapper
 {
+    //map the key to the exact string
     return [[JSONKeyMapper alloc] initWithDictionary:@{
                                                        @"date":@"weatherDate",
                                                        @"cond.txt_d":@"dayWeather",

@@ -19,10 +19,6 @@
     __block WeatherModel *weatherModel; //use the JSONModel
     __block NSData *responseData; //the json data
     
-    //the json string and code received from network
-//    __block NSInteger responseCode;
-//    __block NSString *responseString;
-    
 }
 
 
@@ -30,8 +26,6 @@
 @end
 
 @implementation ViewController
-
-
 
 
 - (void)viewDidLoad
@@ -44,10 +38,10 @@
     self.dailyWeatherTable.delegate = self;
     
     
-    NSLog(@"the weather report");
+//    NSLog(@"the weather report");
     
-    httpUrl = @"http://apis.baidu.com/heweather/weather/free"; //weather data from http://www.heweather.com
-//    httpArg = @"city=wuhan";
+    //set the URL
+    httpUrl = @"http://apis.baidu.com/heweather/weather/free"; //weather data from http://www.heweather.com;
     
     
 }
@@ -70,6 +64,7 @@
     request.HTTPMethod = @"GET";
     [request addValue:@"7941288324b589ad9cf1f2600139078e" forHTTPHeaderField:@"apikey"];
     
+    //send http request
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
@@ -91,6 +86,7 @@
                                    //get the response data and call back
                                    responseData = data;
                                    
+                                   //process the responsdata
                                    [self requestCallBack];
                                 
                                    
@@ -104,14 +100,10 @@
 - (IBAction)clicked:(id)sender
 {
     
-    
     //send network request to get the weather data
     httpArg = [NSString stringWithFormat:@"city=%@", self.cityTextField.text]; //the city name can be chinese or english
     
     [self request:httpUrl withHttpArg:httpArg];
-    
-   
-    
 }
 
 - (void)requestCallBack
@@ -129,7 +121,7 @@
     
 //    NSLog(@"%@", jsonArray);
     
-    //fill the weather model,
+    //fill the weather model, here not using JsonModel, just manual parse the json file
     weatherModel = [[WeatherModel alloc] init];
     weatherModel.city = jsonArray.firstObject[@"basic"][@"city"]; //because the json has only one big array
     weatherModel.country = jsonArray.firstObject[@"basic"][@"cnty"];
@@ -172,6 +164,8 @@
     
     [self.dailyWeatherTable reloadData];
     
+    
+    //here is the example of JsonModel, it will automatically parse all we want
 //        weatherModel = [[WeatherModel alloc] initWithString:responseString
 //                                                      error:&error];
 //    
@@ -195,6 +189,7 @@
     
     cell.backgroundColor = indexPath.row%2 ? [UIColor lightGrayColor]:[UIColor greenColor];
     cell.textLabel.numberOfLines = 5;
+    //use weather data to set cell text
     cell.textLabel.text = [NSString stringWithFormat:@"date: %@\nday weather: %@\nnight weather: %@\ntmperature: %@-%@",
                            [weatherModel.dailyWeatherDatas[indexPath.row] weatherDate],
                            [weatherModel.dailyWeatherDatas[indexPath.row] dayWeather],
