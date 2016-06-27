@@ -31,7 +31,6 @@
 
 @implementation ViewController
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -69,8 +68,9 @@
     static NSString *cellIdentifier = @"UITableViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil)
+    {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-    
+    }
     
     cell.backgroundColor = indexPath.row%2 ? [UIColor lightGrayColor]:[UIColor greenColor];
     cell.textLabel.numberOfLines = 5;
@@ -125,7 +125,9 @@
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
                                if(connectionError)
+                               {
                                    NSLog(@"Httperror: %@%d", connectionError.localizedDescription, connectionError.code);
+                               }
                                else
                                {
                                    //get the response code
@@ -161,7 +163,9 @@
                                                  options:NSJSONReadingMutableContainers error:&error];
     
     if (!jsonObj || error)
+    {
         NSLog(@"JSON parse failed!");
+    }
     
     NSMutableArray *jsonArray = [jsonObj objectForKey:@"HeWeather data service 3.0"];
     
@@ -222,7 +226,6 @@
 #pragma mark - button callback
 - (IBAction)clicked:(id)sender
 {
-    
     //send network request to get the weather data
     httpArg = [NSString stringWithFormat:@"city=%@", self.cityTextField.text]; //the city name can be chinese or english
     
