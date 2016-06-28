@@ -121,6 +121,7 @@
     [request addValue:apiKey forHTTPHeaderField:@"apikey"];
     
     //send http request
+    __weak ViewController *wself = self;
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
@@ -130,24 +131,16 @@
                                }
                                else
                                {
-                                   //get the response code
-//                                   responseCode = ((NSHTTPURLResponse *)response).statusCode;
-                                   //get the response json string
-//                                   responseString = [[NSString alloc] initWithData:data
-//                                                                                    encoding:NSUTF8StringEncoding];
-//
-//                                   
-//                                   responseString = [responseString stringByReplacingOccurrencesOfString:
-//                                                     @"HeWeather data service 3.0"
-//                                                                                              withString:@"HeWeather_data_service_3_0"];//leave out the white space
+                                   // get the response data and call back
                                    
-                                   //get the response data and call back
-                                   responseData = data;
-                                   
-                                   //process the responsdata
-                                   [self requestCallBack];
-                                
-                                   
+                                   // set weak self to in case the user give up this request
+                                   ViewController *sself = wself;
+                                   if (sself) {
+                                       responseData = data;
+                                       
+                                       //process the responsdata
+                                       [wself requestCallBack];
+                                   }
                                }
                            }];
     
